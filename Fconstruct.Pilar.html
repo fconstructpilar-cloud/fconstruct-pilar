@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FConstruct.Pillar - Construcción, Remodelación y Mantenimiento Edilicio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-yellow: #f4b41a;
+            --bg-dark: #0f0f0f;
+            --bg-card: #161616;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
+            --whatsapp-green: #f4b41a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #000;
+            padding: 15px 40px;
+            border-bottom: 2px solid var(--primary-yellow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-area img {
+            height: 55px;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary-yellow);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://i.imgur.com/PmNDhkH.png') center/cover no-repeat;
+            padding: 90px 60px;
+            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 4px solid var(--primary-yellow);
+        }
+
+        .hero-content { max-width: 620px; }
+        .hero h1 { font-size: 40px; line-height: 1.2; font-weight: 800; margin-bottom: 20px; }
+        .hero h1 span { color: var(--primary-yellow); }
+        .hero p { color: var(--text-gray); font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
+
+        .btn-yellow {
+            background-color: var(--primary-yellow);
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+        }
+
+        /* SECTION TITLES */
+        .section-title {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin: 50px 0 15px 0;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-yellow);
+            margin: 8px auto 0 auto;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 14px;
+            margin-bottom: 35px;
+        }
+
+        /* SERVICES CAROUSEL */
+        .services-container { max-width: 1300px; margin: 0 auto 50px auto; padding: 0 20px; overflow: hidden; }
+        .services-carousel { background-color: #000000; border: 1px solid #222; border-radius: 6px; padding: 25px 0; position: relative; overflow: hidden; display: flex; width: 100%; }
+        .services-carousel::before, .services-carousel::after { content: ""; position: absolute; top: 0; width: 80px; height: 100%; z-index: 2; pointer-events: none; }
+        .services-carousel::before { left: 0; background: linear-gradient(to right, #000000, transparent); }
+        .services-carousel::after { right: 0; background: linear-gradient(to left, #000000, transparent); }
+        .services-track { display: flex; gap: 20px; width: max-content; animation: scrollServices 40s linear infinite; }
+        .services-track:hover { animation-play-state: paused; }
+        .service-card { min-width: 300px; width: 300px; background-color: #161616; border: 1px solid #2a2a2a; color: #ffffff; padding: 25px 20px; text-align: center; border-radius: 4px; border-top: 5px solid var(--primary-yellow); display: flex; flex-direction: column; align-items: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .service-card:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(244, 180, 26, 0.2); }
+        .service-card i { font-size: 32px; color: #ffffff; margin-bottom: 15px; }
+        .service-card h3 { font-size: 14px; font-weight: 800; color: #ffffff; margin-bottom: 12px; line-height: 1.3; }
+        .service-card p { font-size: 12px; color: #b0b0b0; line-height: 1.4; }
+        @keyframes scrollServices { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 10px)); } }
+
+        /* RENDERS CAROUSEL SECTION */
+        .renders-container { max-width: 1300px; margin: 50px auto; padding: 0 20px; overflow: hidden; }
+        .renders-carousel { background-color: var(--bg-card); border: 1px solid #222; border-radius: 6px; padding: 25px 0; position: relative; overflow: hidden; display: flex; width: 100%; }
+        .renders-carousel::before, .renders-carousel::after { content: ""; position: absolute; top: 0; width: 80px; height: 100%; z-index: 2; pointer-events: none; }
+        .renders-carousel::before { left: 0; background: linear-gradient(to right, var(--bg-card), transparent); }
+        .renders-carousel::after { right: 0; background: linear-gradient(to left, var(--bg-card), transparent); }
+        .renders-track { display: flex; gap: 20px; width: max-content; animation: scrollRenders 30s linear infinite; }
+        .renders-track:hover { animation-play-state: paused; }
+        .renders-track img {
+            width: 400px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s ease, opacity 0.3s;
+            opacity: 0.8;
+            pointer-events: auto; /* Permite hacer clic aunque el track se mueva */
+        }
+        .renders-track img:hover { transform: scale(1.02); opacity: 1; border: 2px solid var(--primary-yellow); }
+        @keyframes scrollRenders { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 10px)); } }
+
+        /* LIGHTBOX MODAL */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox-modal.active { display: flex; }
+        .lightbox-content {
+            max-width: 80%;
+            max-height: 80vh;
+            object-fit: contain;
+            border: 4px solid var(--primary-yellow);
+            border-radius: 4px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 2001;
+        }
+        .lightbox-close:hover { color: var(--primary-yellow); }
+        .lightbox-prev, .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 50px;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s;
+            padding: 20px;
+            z-index: 2001;
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-prev:hover, .lightbox-next:hover { color: var(--primary-yellow); }
+
+        /* B2B SECTION */
+        .b2b-section { max-width: 1300px; margin: 40px auto; background-color: var(--bg-card); display: grid; grid-template-columns: 1fr 1fr; border-radius: 6px; overflow: hidden; border: 1px solid #222; }
+        .b2b-img img { width: 100%; height: 100%; object-fit: cover; }
+        .b2b-content { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .b2b-content h2 { font-size: 22px; font-weight: 800; margin-bottom: 25px; }
+        .b2b-content h2 span { color: var(--primary-yellow); }
+        .b2b-list { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .b2b-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-gray); }
+        .b2b-item i { color: var(--primary-yellow); margin-top: 2px; }
+
+        /* GALLERY */
+        .gallery-container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+        .gallery-card { background-color: #000; border-radius: 4px; overflow: hidden; border: 1px solid #222; text-align: center; }
+        .gallery-card img { width: 100%; height: 150px; object-fit: cover; }
+        .gallery-card span { display: block; padding: 10px; font-size: 11px; font-weight: 700; letter-spacing: 1px; }
+
+        /* BRANDS CAROUSEL */
+        .brands-section { max-width: 1300px; margin: 50px auto; padding: 0 20px; overflow: hidden; }
+        .brands-carousel { background-color: var(--bg-card); border: 1px solid #222; border-radius: 6px; padding: 25px 0; position: relative; overflow: hidden; display: flex; width: 100%; }
+        .brands-carousel::before, .brands-carousel::after { content: ""; position: absolute; top: 0; width: 80px; height: 100%; z-index: 2; pointer-events: none; }
+        .brands-carousel::before { left: 0; background: linear-gradient(to right, var(--bg-card), transparent); }
+        .brands-carousel::after { right: 0; background: linear-gradient(to left, var(--bg-card), transparent); }
+        .brands-track { display: flex; gap: 50px; width: max-content; animation: scrollBrands 25s linear infinite; }
+        .brand-item { min-width: 200px; height: 90px; background-color: #000; border: 1px solid #333; border-radius: 4px; display: flex; align-items: center; justify-content: center; padding: 10px; transition: border-color 0.3s; }
+        .brand-item img { max-width: 85%; max-height: 70px; object-fit: contain; transition: transform 0.3s; }
+        .brand-item:hover { border-color: var(--primary-yellow); }
+        .brand-item:hover img { transform: scale(1.1); }
+        @keyframes scrollBrands { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 25px)); } }
+
+        /* BRAND PROJECTS */
+        .brand-projects-section { max-width: 1300px; margin: 50px auto; padding: 0 20px; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 25px; }
+        .project-card { background-color: var(--bg-card); border: 1px solid #222; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .project-card:hover { transform: translateY(-5px); border-color: var(--primary-yellow); }
+        .project-image-wrapper { position: relative; width: 100%; height: 220px; overflow: hidden; background-color: #000; display: flex; align-items: center; justify-content: center; }
+        .project-image-wrapper img { width: 80%; height: auto; max-height: 180px; object-fit: contain; padding: 20px; transition: transform 0.5s ease; }
+        .project-card:hover .project-image-wrapper img { transform: scale(1.05); }
+        .brand-tag { position: absolute; top: 15px; left: 15px; background-color: rgba(0, 0, 0, 0.75); color: var(--primary-yellow); border: 1px solid var(--primary-yellow); padding: 5px 10px; font-size: 11px; font-weight: bold; letter-spacing: 1px; border-radius: 4px; backdrop-filter: blur(4px); }
+        .project-info { padding: 20px; }
+        .project-info h3 { font-size: 18px; color: #fff; margin-bottom: 10px; }
+        .project-info p { font-size: 14px; color: var(--text-gray); line-height: 1.5; margin-bottom: 20px; }
+        .project-link { font-size: 13px; font-weight: bold; color: var(--primary-yellow); text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: opacity 0.2s; }
+        .project-link:hover { opacity: 0.8; }
+
+        /* ABOUT / WHY US */
+        .info-section { max-width: 1300px; margin: 40px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px; }
+        .info-box { background-color: var(--bg-card); border: 1px solid #222; padding: 35px; border-radius: 6px; }
+        .info-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 20px; text-align: center; letter-spacing: 1px; }
+        .about-inner { display: flex; gap: 20px; align-items: center; }
+        .about-inner i { font-size: 45px; color: var(--primary-yellow); }
+        .about-inner p { font-size: 13px; color: var(--text-gray); line-height: 1.5; margin-bottom: 15px; }
+        .btn-outline { background-color: #000; color: #fff; border: 1px solid #333; padding: 8px 16px; font-size: 11px; font-weight: bold; border-radius: 3px; text-decoration: none; display: inline-block; }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
+        .feature-item i { font-size: 26px; color: var(--primary-yellow); margin-bottom: 10px; }
+        .feature-item h4 { font-size: 11px; font-weight: 800; margin-bottom: 5px; }
+        .feature-item p { font-size: 10px; color: var(--text-gray); line-height: 1.3; }
+
+        /* FOOTER */
+        footer { background-color: #080808; border-top: 2px solid #222; margin-top: 60px; padding: 50px 40px 20px 40px; }
+        .footer-container { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; padding-bottom: 30px; border-bottom: 1px solid #222; }
+        .footer-col img { height: 50px; margin-bottom: 10px; }
+        .footer-col p.slogan { font-size: 11px; color: var(--primary-yellow); letter-spacing: 1px; font-weight: 700; }
+        .footer-col h4 { color: var(--primary-yellow); font-size: 14px; font-weight: 800; margin-bottom: 15px; letter-spacing: 1px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { font-size: 12px; color: var(--text-gray); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .footer-col ul li i { color: var(--primary-yellow); }
+        .footer-bottom { max-width: 1300px; margin: 20px auto 0 auto; text-align: center; font-size: 11px; color: #555; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <img src="https://i.imgur.com/IT57OUr.png" alt="FConstruct.Pilar">
+        </div>
+        <nav>
+            <a href="#inicio" class="active">INICIO</a>
+            <a href="#servicios">SERVICIOS</a>
+            <a href="#empresas">EMPRESAS</a>
+            <a href="#galeria">GALERÍA</a>
+            <a href="#nosotros">NOSOTROS</a>
+            <a href="#contacto">CONTACTO</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>CONSTRUCCIÓN, REMODELACIÓN Y <span>MANTENIMIENTO EDILICIO</span></h1>
+            <p>En FConstruct.Pillar ofrecemos soluciones integrales para hogares, comercios e industrias. Más de 15 años de experiencia y un equipo de personas capacitadas para ejecutar obras con calidad, responsabilidad y compromiso.</p>
+            <a href="https://wa.me/5491173690241" target="_blank" class="btn-yellow">
+                <i class="fab fa-whatsapp"></i> ESCRIBINOS POR WHATSAPP
+            </a>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <div class="services-container" id="servicios">
+        <h2 class="section-title">NUESTROS SERVICIOS</h2>
+        <div class="services-carousel">
+            <div class="services-track">
+                <div class="service-card"><i class="fas fa-hard-hat"></i><h3>CONSTRUCCIÓN TRADICIONAL</h3><p>Obras nuevas, ampliaciones y reformas con materiales de primera calidad.</p></div>
+                <div class="service-card"><i class="fas fa-layer-group"></i><h3>CONSTRUCCIÓN EN SECO / DURLOCK</h3><p>Tabiques, cielorrasos, revestimientos y soluciones en seco.</p></div>
+                <div class="service-card"><i class="fas fa-paint-roller"></i><h3>PINTURA</h3><p>Pintura interior y exterior, residencial, comercial e industrial.</p></div>
+                <div class="service-card"><i class="fas fa-door-open"></i><h3>ABERTURAS</h3><p>Suministro e instalación de ventanas, puertas y cerramientos.</p></div>
+                <div class="service-card"><i class="fas fa-bolt"></i><h3>ELECTRICIDAD</h3><p>Instalaciones y reparaciones eléctricas en general.</p></div>
+                <div class="service-card"><i class="fas fa-faucet"></i><h3>PLOMERÍA</h3><p>Instalaciones y reparaciones de agua y desagües.</p></div>
+                <div class="service-card"><i class="fas fa-snowflake"></i><h3>AIRES ACONDICIONADOS</h3><p>Instalación, service, cargas de gas y mantenimiento preventivo.</p></div>
+                <div class="service-card"><i class="fas fa-shield-alt"></i><h3>HUMEDADES</h3><p>Diagnóstico y solución de filtraciones y humedades.</p></div>
+                <div class="service-card"><i class="fas fa-wrench"></i><h3>MANTENIMIENTO EDILICIO</h3><p>Mantenimiento preventivo y correctivo para hogares, comercios e industrias.</p></div>
+
+                <!-- Duplicados -->
+                <div class="service-card"><i class="fas fa-hard-hat"></i><h3>CONSTRUCCIÓN TRADICIONAL</h3><p>Obras nuevas, ampliaciones y reformas con materiales de primera calidad.</p></div>
+                <div class="service-card"><i class="fas fa-layer-group"></i><h3>CONSTRUCCIÓN EN SECO / DURLOCK</h3><p>Tabiques, cielorrasos, revestimientos y soluciones en seco.</p></div>
+                <div class="service-card"><i class="fas fa-paint-roller"></i><h3>PINTURA</h3><p>Pintura interior y exterior, residencial, comercial e industrial.</p></div>
+                <div class="service-card"><i class="fas fa-door-open"></i><h3>ABERTURAS</h3><p>Suministro e instalación de ventanas, puertas y cerramientos.</p></div>
+                <div class="service-card"><i class="fas fa-bolt"></i><h3>ELECTRICIDAD</h3><p>Instalaciones y reparaciones eléctricas en general.</p></div>
+                <div class="service-card"><i class="fas fa-faucet"></i><h3>PLOMERÍA</h3><p>Instalaciones y reparaciones de agua y desagües.</p></div>
+                <div class="service-card"><i class="fas fa-snowflake"></i><h3>AIRES ACONDICIONADOS</h3><p>Instalación, service, cargas de gas y mantenimiento preventivo.</p></div>
+                <div class="service-card"><i class="fas fa-shield-alt"></i><h3>HUMEDADES</h3><p>Diagnóstico y solución de filtraciones y humedades.</p></div>
+                <div class="service-card"><i class="fas fa-wrench"></i><h3>MANTENIMIENTO EDILICIO</h3><p>Mantenimiento preventivo y correctivo para hogares, comercios e industrias.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RENDERS CAROUSEL -->
+    <div class="renders-container" id="renders">
+        <h2 class="section-title">RENDERIZADO DE PROYECTOS</h2>
+        <p class="section-subtitle">Visualizá tu proyecto antes de construirlo. Realizamos renders 3D fotorealistas para viviendas,
+locales comerciales, oficinas e industrias, permitiéndote conocer cada detalle del diseño,
+los materiales y la distribución de los espacios antes de iniciar la obra.</p>
+        <div class="renders-carousel">
+            <div class="renders-track">
+                <!-- Imágenes Originales (Cambia la URL por la de tus renders) -->
+                <img src="https://i.imgur.com/AdZWHvE.png" onclick="openLightbox(0)" alt="Render 1">
+                <img src="https://i.imgur.com/lpWJSAb.png" onclick="openLightbox(1)" alt="Render 2">
+                <img src="https://i.imgur.com/zSwdN7n.png" onclick="openLightbox(2)" alt="Render 3">
+                <img src="https://i.imgur.com/aPeywTB.png" onclick="openLightbox(3)" alt="Render 4">
+                <img src="https://i.imgur.com/nSiojwo.png" onclick="openLightbox(4)" alt="Render 5">
+
+                <!-- Imágenes Duplicadas para el scroll infinito -->
+                <img src="https://i.imgur.com/AdZWHvE.png" onclick="openLightbox(0)" alt="Render 1">
+                <img src="https://i.imgur.com/lpWJSAb.png" onclick="openLightbox(1)" alt="Render 2">
+                <img src="https://i.imgur.com/zSwdN7n.png" onclick="openLightbox(2)" alt="Render 3">
+                <img src="https://i.imgur.com/aPeywTB.png" onclick="openLightbox(3)" alt="Render 4">
+                <img src="https://i.imgur.com/nSiojwo.png" onclick="openLightbox(4)" alt="Render 5">
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX MODAL (Ventana emergente) -->
+    <div id="lightbox-modal" class="lightbox-modal" onclick="closeLightbox(event)">
+        <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+        <span class="lightbox-prev" onclick="changeRender(-1, event)">&#10094;</span>
+        <img id="lightbox-img" class="lightbox-content" src="" alt="Render Ampliado">
+        <span class="lightbox-next" onclick="changeRender(1, event)">&#10095;</span>
+    </div>
+
+    <!-- EMPRESAS -->
+    <section class="b2b-section" id="empresas">
+        <div class="b2b-img">
+            <img src="https://i.imgur.com/f3ZN396.png" alt="Obra comercial">
+        </div>
+        <div class="b2b-content">
+            <h2>SERVICIOS PARA <span>EMPRESAS Y COMERCIOS</span></h2>
+            <div class="b2b-list">
+                <div class="b2b-item"><i class="fas fa-check-circle"></i> Mantenimiento preventivo y correctivo</div>
+                <div class="b2b-item"><i class="fas fa-check-circle"></i> Pintura industrial y comercial</div>
+                <div class="b2b-item"><i class="fas fa-check-circle"></i> Reparación de oficinas y depósitos</div>
+                <div class="b2b-item"><i class="fas fa-check-circle"></i> Reparación de filtraciones y cubiertas</div>
+                <div class="b2b-item"><i class="fas fa-check-circle"></i> Remodelación de locales comerciales</div>
+                <div class="b2b-item"><i class="fas fa-check-circle"></i> Ampliaciones y remodelaciones</div>
+                <div class="b2b-item"><i class="fas fa-check-circle"></i> Construcción de tabiques de Durlock</div>
+                <div class="b2b-item"><i class="fas fa-check-circle"></i> Contratos de mantenimiento mensual</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIA -->
+    <div class="gallery-container" id="galeria">
+        <h2 class="section-title">GALERÍA DE TRABAJOS</h2>
+        <div class="gallery-grid">
+            <div class="gallery-card"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=400&q=80" alt="Antes y Después"><span>ANTES / DESPUÉS</span></div>
+            <div class="gallery-card"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=400&q=80" alt="Construcción en Seco"><span>CONSTRUCCIÓN EN SECO</span></div>
+            <div class="gallery-card"><img src="https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=400&q=80" alt="Obra Nueva"><span>OBRA NUEVA</span></div>
+            <div class="gallery-card"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80" alt="Aberturas"><span>ABERTURAS</span></div>
+            <div class="gallery-card"><img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=400&q=80" alt="Pintura Interior"><span>PINTURA INTERIOR</span></div>
+            <div class="gallery-card"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80" alt="Remodelación"><span>REMODELACIÓN</span></div>
+        </div>
+    </div>
+
+    <!-- MARCAS -->
+    <section class="brands-section">
+        <h2 class="section-title">MARCAS QUE NOS ACOMPAÑAN</h2>
+        <div class="brands-carousel">
+            <div class="brands-track">
+                <div class="brand-item"><img src="https://i.imgur.com/iTbREMl.png" alt="Marca 1"></div>
+                <div class="brand-item"><img src="https://i.imgur.com/xf9IQX7.png" alt="Marca 2"></div>
+                <div class="brand-item"><img src="https://i.imgur.com/gVMblxH.png" alt="Marca 3"></div>
+                <div class="brand-item"><img src="https://i.imgur.com/zxS2mV1.png" alt="Marca 4"></div>
+                <div class="brand-item"><img src="https://i.imgur.com/wQ5pAhX.png" alt="Marca 5"></div>
+                <div class="brand-item"><img src="https://i.imgur.com/VLaX0Fo.png" alt="Marca 6"></div>
+                
+                <!-- Duplicados -->
+                <div class="brand-item"><img src="https://i.imgur.com/iTbREMl.png" alt="Marca 1"></div>
+                <div class="brand-item"><img src="https://i.imgur.com/xf9IQX7.png" alt="Marca 2"></div>
+                <div class="brand-item"><img src="https://i.imgur.com/gVMblxH.png" alt="Marca 3"></div>
+                <div class="brand-item"><img src="https://i.imgur.com/zxS2mV1.png" alt="Marca 4"></div>
+                <div class="brand-item"><img src="https://i.imgur.com/wQ5pAhX.png" alt="Marca 5"></div>
+                <div class="brand-item"><img src="https://i.imgur.com/VLaX0Fo.png" alt="Marca 6"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section class="brand-projects-section">
+        <h2 class="section-title">PROYECTOS DESTACADOS POR MARCA</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img src="https://i.imgur.com/iTbREMl.png" alt="Proyecto Marca 1">
+                </div>
+                <div class="project-info">
+                    <h3>Remodelación Edilicia Integral</h3>
+                    <p>Desarrollo de obras de optimización estructural y modernización de espacios comerciales en conjunto con Marca 1.</p>
+                    <a href="#contacto" class="project-link">Ver detalles &rarr;</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                        <img src="https://i.imgur.com/xf9IQX7.png" alt="Proyecto Marca 2">
+                </div>
+                <div class="project-info">
+                    <h3>Instalación y Tabiques en Seco</h3>
+                    <p>Implementación de divisiones corporativas de alta gama y cielorrasos técnicos certificados.</p>
+                    <a href="#contacto" class="project-link">Ver detalles &rarr;</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img src="https://i.imgur.com/gVMblxH.png" alt="Proyecto Marca 3">
+                </div>
+                <div class="project-info">
+                    <h3>Pintura e Impermeabilización</h3>
+                    <p>Aplicación de recubrimientos especiales y tratamientos de protección para grandes superficies industriales.</p>
+                    <a href="#contacto" class="project-link">Ver detalles &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <div class="info-section" id="nosotros">
+        <div class="info-box">
+            <h3>SOBRE NOSOTROS</h3>
+            <div class="about-inner">
+                <i class="fas fa-users"></i>
+                <div>
+                    <p>FConstruct.Pillar cuenta con más de 15 años de experiencia en el rubro de la construcción. Tenemos un equipo propio de personas capacitadas para ejecutar proyectos de distinta escala, brindando soluciones integrales con compromiso, seriedad y cumplimiento en cada obra.</p>
+                    <a href="#contacto" class="btn-outline">CONOCÉ MÁS SOBRE NOSOTROS</a>
+                </div>
+            </div>
+        </div>
+        <div class="info-box">
+            <h3>¿POR QUÉ ELEGIRNOS?</h3>
+            <div class="features-grid">
+                <div class="feature-item"><i class="fas fa-shield-alt"></i><h4>CALIDAD</h4><p>Trabajamos con materiales de primera línea y mano de obra calificada.</p></div>
+                <div class="feature-item"><i class="fas fa-handshake"></i><h4>COMPROMISO</h4><p>Cumplimos con los plazos acordados y nos adaptamos a tus necesidades.</p></div>
+                <div class="feature-item"><i class="fas fa-user-tie"></i><h4>ATENCIÓN PERSONALIZADA</h4><p>Te acompañamos en todo el proceso de tu proyecto.</p></div>
+                <div class="feature-item"><i class="fas fa-file-invoice-dollar"></i><h4>PRESUPUESTOS SIN CARGO</h4><p>Solicitá tu presupuesto y te asesoramos sin ningún compromiso.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div class="footer-container">
+            <div class="footer-col">
+                <img src="https://i.imgur.com/IT57OUr.png" alt="FConstruct.Pilar">
+                <p class="slogan">CONSTRUIMOS SOLUCIONES, CREAMOS VALOR</p>
+            </div>
+            <div class="footer-col">
+                <h4>CONTACTO</h4>
+                <ul>
+                    <li><i class="fas fa-phone-alt"></i> 011 7369-0241</li>
+                    <li><i class="fas fa-envelope"></i> fconstruct.pilar@gmail.com</li>
+                    <li><i class="fab fa-instagram"></i> @fconstruct.pilar</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Pilar, Buenos Aires</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>ZONA DE COBERTURA</h4>
+                <ul>
+                    <li><i class="fas fa-map-pin"></i> Pilar, Del Viso, Manuel Alberti, Tortuguitas, Lagomarsino, Garín, Escobar y zonas aledañas.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 FConstruct.Pillar - Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT PARA EL LIGHTBOX -->
+    <script>
+        let currentRenderIndex = 0;
+        // Array con las URLs de las imágenes (deben ser las mismas que pusiste en el HTML)
+        const renderImages = [
+            "https://i.imgur.com/AdZWHvE.png",
+            "https://i.imgur.com/lpWJSAb.png",
+            "https://i.imgur.com/zSwdN7n.png",
+            "https://i.imgur.com/aPeywTB.png",
+            "https://i.imgur.com/nSiojwo.png",
+            "https://i.imgur.com/c1O6NRP.png",
+            "https://i.imgur.com/XqDTLvv.png",
+            "https://i.imgur.com/YDcawmR.png",
+            "https://i.imgur.com/umuc6Wy.png",
+
+        ];
+
+        function openLightbox(index) {
+            currentRenderIndex = index;
+            document.getElementById("lightbox-img").src = renderImages[currentRenderIndex];
+            document.getElementById("lightbox-modal").classList.add("active");
+        }
+
+        function closeLightbox(event) {
+            // Si se hace clic en el fondo oscuro o en la X, se cierra
+            if (event.target.id === 'lightbox-modal' || event.target.classList.contains('lightbox-close')) {
+                document.getElementById("lightbox-modal").classList.remove("active");
+            }
+        }
+
+        function changeRender(direction, event) {
+            event.stopPropagation(); // Evita que cierre el modal al hacer clic en la flecha
+            currentRenderIndex += direction;
+            
+            // Lógica para que sea infinito (vuelva al principio o al final)
+            if (currentRenderIndex >= renderImages.length) {
+                currentRenderIndex = 0;
+            } else if (currentRenderIndex < 0) {
+                currentRenderIndex = renderImages.length - 1;
+            }
+            
+            document.getElementById("lightbox-img").src = renderImages[currentRenderIndex];
+        }
+
+        // Permite usar las flechas del teclado para pasar imágenes
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById("lightbox-modal");
+            if (modal.classList.contains('active')) {
+                if (event.key === 'ArrowRight') {
+                    changeRender(1, event);
+                } else if (event.key === 'ArrowLeft') {
+                    changeRender(-1, event);
+                } else if (event.key === 'Escape') {
+                    modal.classList.remove("active");
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
